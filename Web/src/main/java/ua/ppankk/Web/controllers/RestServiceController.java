@@ -1,5 +1,8 @@
 package ua.ppankk.Web.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -29,9 +32,17 @@ public class RestServiceController {
             value = "/hello/contact",
             produces = MediaType.APPLICATION_JSON_VALUE,
             method = RequestMethod.GET)
-    public @ResponseBody ContactDTO getContact(@RequestParam(name = "id") Long id){
+    public @ResponseBody String getContact(@RequestParam(name = "id") Long id){
         logger.info("Id: " + id);
-        return restService.getContact(id);
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectWriter objectWriter = mapper.writer().withRootName("Contact");
+        String json = "";
+        try{
+            json = objectWriter.writeValueAsString(restService.getContact(id));
+        }catch (JsonProcessingException ex){
+            ex.printStackTrace();
+        }
+        return json;
     }
 
     @RequestMapping(
@@ -40,6 +51,19 @@ public class RestServiceController {
             method = RequestMethod.GET)
     public @ResponseBody List<ContactDTO> getContactsFiltered(@RequestParam(name = "nameFilter") String regex){
         logger.info("Regex: " + regex);
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectWriter objectWriter = mapper.writer().withRootName("contacts:");
+        String json = "";
+        List<ContactDTO> contactsFiltered = restService.getContactsFiltered(regex);
+        try{
+            json = objectWriter.
+                    writeValueAsString(mapper
+                            .writer()
+                            .withRootName("Contact")
+                            .writeValueAsString());
+        }catch (JsonProcessingException ex){
+            ex.printStackTrace();
+        }
         return restService.getContactsFiltered(regex);
     }
 

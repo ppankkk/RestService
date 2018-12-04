@@ -1,8 +1,15 @@
 package ua.ppankk.Services.DTO;
 
+import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
 import java.io.Serializable;
 import java.util.Objects;
 
+@JsonTypeName(value = "Contact")
+@JsonRootName(value = "Contact")
+@JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.NAME)
 public class ContactDTO implements Serializable {
 
     private Long id;
@@ -51,7 +58,6 @@ public class ContactDTO implements Serializable {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(id, name);
     }
 }

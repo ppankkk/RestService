@@ -2,7 +2,9 @@ package ua.ppankk.Web.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -21,7 +23,7 @@ public class RestServiceController {
 
     private final RestService restService;
 
-    Logger logger = Logger.getLogger(RestServiceController.class);
+    private Logger logger = Logger.getLogger(RestServiceController.class);
 
     @Autowired
     public RestServiceController(RestService restService) {
@@ -32,39 +34,32 @@ public class RestServiceController {
             value = "/hello/contact",
             produces = MediaType.APPLICATION_JSON_VALUE,
             method = RequestMethod.GET)
-    public @ResponseBody String getContact(@RequestParam(name = "id") Long id){
+    public @ResponseBody ContactDTO getContact(@RequestParam(name = "id") Long id){
         logger.info("Id: " + id);
-        ObjectMapper mapper = new ObjectMapper();
-        ObjectWriter objectWriter = mapper.writer().withRootName("Contact");
-        String json = "";
-        try{
-            json = objectWriter.writeValueAsString(restService.getContact(id));
-        }catch (JsonProcessingException ex){
-            ex.printStackTrace();
-        }
-        return json;
+        return restService.getContact(id);
     }
 
     @RequestMapping(
             value = "/hello/contacts",
             produces = MediaType.APPLICATION_JSON_VALUE,
             method = RequestMethod.GET)
-    public @ResponseBody List<ContactDTO> getContactsFiltered(@RequestParam(name = "nameFilter") String regex){
+    public @ResponseBody String getContactsFiltered(@RequestParam(name = "nameFilter") String regex){
         logger.info("Regex: " + regex);
-        ObjectMapper mapper = new ObjectMapper();
-        ObjectWriter objectWriter = mapper.writer().withRootName("contacts:");
-        String json = "";
         List<ContactDTO> contactsFiltered = restService.getContactsFiltered(regex);
-        try{
-            json = objectWriter.
-                    writeValueAsString(mapper
-                            .writer()
-                            .withRootName("Contact")
-                            .writeValueAsString());
-        }catch (JsonProcessingException ex){
-            ex.printStackTrace();
+        JsonNodeFactory factory = new JsonNodeFactory(false);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
+        ArrayNode rootNode = factory.arrayNode();
+        contactsFiltered.forEach(contactDTO -> rootNode.addPOJO(contactDTO));
+
+        try {
+            return mapper.writer()
+                    .withRootName("contacts")
+                    .writeValueAsString(rootNode);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
         }
-        return restService.getContactsFiltered(regex);
+        return "";
     }
 
     @RequestMapping(

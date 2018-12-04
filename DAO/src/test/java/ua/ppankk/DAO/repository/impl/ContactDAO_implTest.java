@@ -40,7 +40,13 @@ public class ContactDAO_implTest {
 
     @Test
     public void gelFilteredContacts() {
-        assertTrue(false);
+        Contact actual1 = new Contact(null, "Azzzzzzz");
+        Contact actual2 = new Contact(null, "yyeyyyyy");
+
+        entityManager.persist(actual1);
+        entityManager.persist(actual2);
+        List<Contact> contactList = contactDAO.gelFilteredContacts("^A.*$");
+        assertTrue(!contactList.contains(actual1) && contactList.contains(actual2));
     }
 
     @Test

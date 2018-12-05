@@ -45,6 +45,7 @@ public class RestServiceController {
             method = RequestMethod.GET)
     public @ResponseBody String getContactsFiltered(@RequestParam(name = "nameFilter") String regex){
         logger.info("Regex: " + regex);
+        String ret = "";
         List<ContactDTO> contactsFiltered = restService.getContactsFiltered(regex);
         JsonNodeFactory factory = new JsonNodeFactory(false);
         ObjectMapper mapper = new ObjectMapper();
@@ -53,13 +54,13 @@ public class RestServiceController {
         contactsFiltered.forEach(contactDTO -> rootNode.addPOJO(contactDTO));
 
         try {
-            return mapper.writer()
+            ret = mapper.writer()
                     .withRootName("contacts")
                     .writeValueAsString(rootNode);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        return "";
+        return ret;
     }
 
     @RequestMapping(

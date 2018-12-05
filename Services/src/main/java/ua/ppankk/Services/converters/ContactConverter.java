@@ -6,4 +6,5 @@ import ua.ppankk.Services.DTO.ContactDTO;
 public interface ContactConverter {
 
     ContactDTO toDto(Contact entity);
+    Contact toEntity(ContactDTO contactDTO);
 }

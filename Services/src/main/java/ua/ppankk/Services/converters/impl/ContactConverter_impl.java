@@ -12,4 +12,9 @@ public class ContactConverter_impl implements ContactConverter {
     public ContactDTO toDto(Contact entity) {
         return new ContactDTO(entity.getId(), entity.getName());
     }
+
+    @Override
+    public Contact toEntity(ContactDTO contactDTO) {
+        return new Contact(contactDTO.getId(), contactDTO.getName());
+    }
 }

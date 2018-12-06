@@ -86,24 +86,4 @@ public class RestServiceControllerTest {
 
         assertEquals(expected, result);
     }
-
-    @Test
-    public void getAllContacts() throws Exception {
-        Long contactId1 = 1L;
-        Long contactId2 = 2L;
-        List<ContactDTO> contactDTOS = new ArrayList<>();
-        contactDTOS.add(new ContactDTO(contactId1, "name1"));
-        contactDTOS.add(new ContactDTO(contactId2, "name2"));
-        given(restService.getAllContacts()).willReturn(contactDTOS);
-
-        String expected = "[{\"Contact\":{\"id\":1,\"name\":\"name1\"}},{\"Contact\":{\"id\":2,\"name\":\"name2\"}}]";
-
-        String result = this.mockMvc
-                .perform(get("/hello/allcontacts"))
-                .andReturn()
-                .getResponse()
-                .getContentAsString();
-
-        assertEquals(expected, result);
-    }
 }

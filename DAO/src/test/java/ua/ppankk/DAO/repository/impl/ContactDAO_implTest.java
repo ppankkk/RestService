@@ -59,16 +59,4 @@ public class ContactDAO_implTest {
         List<Contact> contactList = contactDAO.gelFilteredContacts("^.*[aei].*$");
         assertTrue(contactList.contains(actual1) && !contactList.contains(actual2));
     }
-
-    @Test
-    public void getAllContacts() {
-        Contact actual1 = new Contact(null, "zzzzzzzz");
-        Contact actual2 = new Contact(null, "yyyyyyyy");
-
-        entityManager.persist(actual1);
-        entityManager.persist(actual2);
-        List<Contact> contactList = contactDAO.getAllContacts();
-
-        assertTrue(contactList.contains(actual1) && contactList.contains(actual2));
-    }
 }

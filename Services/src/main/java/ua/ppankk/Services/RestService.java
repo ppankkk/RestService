@@ -7,6 +7,5 @@ import java.util.List;
 public interface RestService {
 
     ContactDTO getContact(Long id);
-    List<ContactDTO> getAllContacts();
     List<ContactDTO> getContactsFiltered(String regexp);
 }

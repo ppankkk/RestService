@@ -43,18 +43,6 @@ public class RestService_implTest {
     }
 
     @Test
-    public void getAllContacts() {
-        Contact actual1 = new Contact(null, "Azzzzzzz");
-        Contact actual2 = new Contact(null, "yyeyyyyy");
-
-        entityManager.persist(actual1);
-        entityManager.persist(actual2);
-        List<ContactDTO> contactList = restService.getAllContacts();
-        assertTrue(contactList.contains(contactConverter.toDto(actual1))
-                && contactList.contains(contactConverter.toDto(actual2)));
-    }
-
-    @Test
     public void getContactsFiltered() {
         Contact actual1 = new Contact(null, "Azzzzzzz");
         Contact actual2 = new Contact(null, "yyeyyyyy");

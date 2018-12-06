@@ -21,40 +21,25 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <springVersion>5.0.5.RELEASE</springVersion>
-        <hibernate.version>5.9.2.Final<!--2.17.Final--></hibernate.version>
+        <springVersion>5.0.7.RELEASE</springVersion>
+        <hibernate.version>5.3.7.Final</hibernate.version>
         <hibernate-jpa-2.1-api.version>1.0.0.Final</hibernate-jpa-2.1-api.version>
-        <h2.version>1.4.196</h2.version>
         <junit.version>4.12</junit.version>
         <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
         <tomcat7-maven-plugin.version>2.2</tomcat7-maven-plugin.version>
         <jackson.version>2.9.7</jackson.version>
         <log4j.version>1.2.17</log4j.version>
         <mySql.version>8.0.13</mySql.version>
+        <mokitoVersion>2.21.0</mokitoVersion>
     </properties>
 
     <dependencyManagement>
         <dependencies>
-            <!--<dependency>-->
-                <!--<groupId>org.springframework</groupId>-->
-                <!--<artifactId>spring-core</artifactId>-->
-                <!--<version>${springVersion}</version>-->
-            <!--</dependency>-->
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-context</artifactId>
                 <version>${springVersion}</version>
             </dependency>
-            <!--<dependency>-->
-                <!--<groupId>org.springframework</groupId>-->
-                <!--<artifactId>spring-beans</artifactId>-->
-                <!--<version>${springVersion}</version>-->
-            <!--</dependency>-->
-            <!--<dependency>-->
-                <!--<groupId>org.springframework</groupId>-->
-                <!--<artifactId>spring-context-support</artifactId>-->
-                <!--<version>${springVersion}</version>-->
-            <!--</dependency>-->
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-orm</artifactId>
@@ -63,7 +48,7 @@
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-entitymanager</artifactId>
-                <version>5.3.7.Final<!--${hibernate.version}--></version>
+                <version>${hibernate.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.hibernate.javax.persistence</groupId>
@@ -75,11 +60,6 @@
                 <artifactId>spring-aspects</artifactId>
                 <version>${springVersion}</version>
             </dependency>
-            <!--<dependency>-->
-                <!--<groupId>org.springframework</groupId>-->
-                <!--<artifactId>spring-aop</artifactId>-->
-                <!--<version>${springVersion}</version>-->
-            <!--</dependency>-->
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
@@ -95,7 +75,7 @@
             <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-core</artifactId>
-                <version>2.21.0</version>
+                <version>${mokitoVersion}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -174,8 +154,11 @@
                     <artifactId>tomcat7-maven-plugin</artifactId>
                     <version>${tomcat7-maven-plugin.version}</version>
                     <configuration>
+                        <url>http://localhost:8080/manager/text</url>
                         <port>8088</port>
                         <path>/</path>
+                        <username>tomcat7</username>
+                        <password>tomcat</password>
                         <charset>UTF-8</charset>
                         <uriEncoding>UTF-8</uriEncoding>
                     </configuration>

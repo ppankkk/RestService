@@ -62,13 +62,4 @@ public class RestServiceController {
         }
         return ret;
     }
-
-    @RequestMapping(
-            value = "/hello/allcontacts",
-            produces = MediaType.APPLICATION_JSON_VALUE,
-            method = RequestMethod.GET)
-    public @ResponseBody List<ContactDTO> getAllContacts(){
-        logger.info("Getting all contacts");
-        return restService.getAllContacts();
-    }
 }

@@ -45,12 +45,4 @@ public class ContactDAO_impl implements ContactDAO {
         System.out.println(maxPageNumber);
         return result;
     }
-
-    @Override
-    public List<Contact> getAllContacts() {
-        TypedQuery<Contact> findAllContacts =
-                entityManager.createQuery("SELECT c FROM Contact c", Contact.class);
-
-        return findAllContacts.getResultList();
-    }
 }

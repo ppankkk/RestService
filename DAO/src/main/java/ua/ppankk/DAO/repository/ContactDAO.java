@@ -8,5 +8,4 @@ public interface ContactDAO {
 
     Contact getContact(Long id);
     List<Contact> gelFilteredContacts(String regex);
-    List<Contact> getAllContacts();
 }

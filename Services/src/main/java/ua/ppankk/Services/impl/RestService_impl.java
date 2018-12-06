@@ -32,18 +32,6 @@ public class RestService_impl implements RestService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<ContactDTO> getAllContacts() {
-        List<Contact> contacts = contactDAO.getAllContacts();
-        List<ContactDTO> contactsDTO = new ArrayList<>();
-
-        contacts.forEach(
-                contact -> contactsDTO.add(contactConverter.toDto(contact)));
-
-        return contactsDTO;
-    }
-
-    @Override
-    @Transactional(readOnly = true)
     public List<ContactDTO> getContactsFiltered(String regexp) {
         List<Contact> contacts = contactDAO.gelFilteredContacts(regexp);
         List<ContactDTO> contactsDTO = new ArrayList<>();

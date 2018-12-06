@@ -313,4 +313,4 @@ INSERT INTO CONTACTS(NAME) VALUES
 ('Virginia'),
 ('Winifred'),
 ('Yvonne'),
-('Zoe')
+('Zoe');

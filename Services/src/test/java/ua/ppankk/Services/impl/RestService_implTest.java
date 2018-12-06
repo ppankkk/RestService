@@ -7,6 +7,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 import ua.ppankk.DAO.model.Contact;
+import ua.ppankk.DAO.repository.ContactDAO;
 import ua.ppankk.Services.DTO.ContactDTO;
 import ua.ppankk.Services.RestService;
 import ua.ppankk.Services.converters.ContactConverter;
@@ -22,6 +23,9 @@ import static org.junit.Assert.*;
 @ContextConfiguration("/context-servicesTest.xml")
 @Transactional
 public class RestService_implTest {
+
+    @Autowired
+    ContactDAO contactDAO;
 
     @Autowired
     private RestService restService;

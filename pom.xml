@@ -161,7 +161,7 @@
                     <artifactId>tomcat7-maven-plugin</artifactId>
                     <version>${tomcat7-maven-plugin.version}</version>
                     <configuration>
-                        <url>http://localhost:8080/manager/text</url>
+                        <url>http://localhost:8888/manager/text</url>
                         <port>8088</port>
                         <path>/</path>
                         <username>tomcat7</username>
